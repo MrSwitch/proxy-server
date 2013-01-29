@@ -12,27 +12,36 @@ var https=require('https');
 
 http.createServer(function(req,res){
 
-	var resourceURL = req.url.replace(/^\//,'');
 
-	// make a call to the resource
-	var request = resourceURL.match(/^https/) ? https : http;
+	try{
 
-	console.log(req);
+		var resourceURL = req.url.replace(/^\//,'');
 
-	request.get( url.parse(resourceURL), function(r){
+		// make a call to the resource
+		var request = resourceURL.match(/^https/) ? https : http;
 
-		var headers = r.headers;
-		headers['Access-Control-Allow-Origin'] = "*";
-		res.writeHead(r.statusCode, headers);
+		request.get( url.parse(resourceURL), function(r){
 
-		r.on('data', function(chunk){
-			res.write(chunk);
+			var headers = r.headers;
+			headers['Access-Control-Allow-Origin'] = "*";
+			res.writeHead(r.statusCode, headers);
+
+			r.on('data', function(chunk){
+				res.write(chunk);
+			});
+
+			r.on('end', function(){
+				res.end();
+			});
+
 		});
 
-		r.on('end', function(){
-			res.end();
-		});
+	}
+	catch(e){
 
-	});
+		res.writeHead(502);
+		res.end();
+
+	}
 
 }).listen(port);
