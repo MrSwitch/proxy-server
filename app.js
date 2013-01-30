@@ -1,17 +1,20 @@
 //
-// Proxy Server passes all traffic with the Allow-Origin-Control-Header
+// Proxy Server proxies requests with the Allow-Origin-Control-Header
 // @author Andrew Dodson
 //
-var fs = require('fs');
-var path = require('path');
+// Usage GET http://proxy-server.herokuapp.com/[URL]
+//
+// e.g.  GET http://proxy-server.herokuapp.com/http://google.com
+//
+
 var url = require('url');
 
 var port=process.env.PORT || 5002;
+
 var http=require('http');
 var https=require('https');
 
 http.createServer(function(req,res){
-
 
 	try{
 
