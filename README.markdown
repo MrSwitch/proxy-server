@@ -14,4 +14,4 @@ e.g.  GET http://proxy-server.herokuapp.com/http://adodson.com
 None discernible
 
 # Author
-Andrew Dodson
+[Andrew Dodson](http://adodson.com)
