@@ -1,12 +1,12 @@
-# PROXY SERVER
+# Proxy Server
 
-Proxies requests with the Allow-Origin-Control-Header
+Proxies requests with the `Access-Control-Allow-Origin` Header
 
 
-# USAGE
+# Usage
 GET http://proxy-server.herokuapp.com/[URL]
 
-e.g.  GET http://proxy-server.herokuapp.com/http://google.com
+e.g.  GET http://proxy-server.herokuapp.com/http://adodson.com
 
 
 # License
