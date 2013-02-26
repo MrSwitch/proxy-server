@@ -23,7 +23,7 @@ http.createServer(function(req,res){
 
 		var resourceURL = req.url.replace(/^\//,'');
 		if(!resourceURL || !resourceURL.match(/^https?:\/\/[a-z\.\-]+/i) ){
-			throw Error("Damn no URL");
+			throw Error(!resourceURL ? "No URL" : "Invalid URL");
 		}
 
 		// make a call to the resource
@@ -43,6 +43,11 @@ http.createServer(function(req,res){
 				res.end();
 			});
 
+		}).on('error', function(e){
+			// We need to handle bugged paths, can't throw an error here for some reason, its not caught
+			res.writeHead(502);
+			res.write("");
+			res.end();
 		});
 
 	}
