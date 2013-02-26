@@ -48,9 +48,7 @@ http.createServer(function(req,res){
 	}
 	catch(e){
 		res.writeHead(502);
-		res.write(e.message);
 		res.end();
-
 	}
 
 }).listen(port);
