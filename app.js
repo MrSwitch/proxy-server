@@ -1,10 +1,13 @@
 //
-// Proxy Server proxies requests with the Allow-Origin-Control-Header
-// @author Andrew Dodson
+// Proxy Server
+// -------------
+// Proxies requests with the Access-Control-Allow-Origin Header
 //
 // Usage GET http://proxy-server.herokuapp.com/[URL]
 //
 // e.g.  GET http://proxy-server.herokuapp.com/http://google.com
+//
+// @author Andrew Dodson
 //
 
 var url = require('url');
@@ -19,6 +22,10 @@ http.createServer(function(req,res){
 	try{
 
 		var resourceURL = req.url.replace(/^\//,'');
+
+		if(!resourceURL){
+			throw "Damn no URL";
+		}
 
 		// make a call to the resource
 		var request = resourceURL.match(/^https/) ? https : http;
