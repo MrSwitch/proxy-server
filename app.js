@@ -48,7 +48,10 @@ http.createServer(function(req,res){
 	}
 	catch(e){
 		res.writeHead(502);
+		// for some reason, unless we return res.write we get an unrecoverable error in Heroku, requiring a restart
+		res.write("");
 		res.end();
+
 	}
 
 }).listen(port);
