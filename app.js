@@ -47,8 +47,8 @@ http.createServer(function(req,res){
 
 	}
 	catch(e){
-		res.writeHead(503);
-//		res.write(e.message);
+		res.writeHead(502);
+		res.write(e.message);
 		res.end();
 
 	}
