@@ -22,9 +22,8 @@ http.createServer(function(req,res){
 	try{
 
 		var resourceURL = req.url.replace(/^\//,'');
-
-		if(!resourceURL){
-			throw "Damn no URL";
+		if(!resourceURL || !resourceURL.match(/^https?:\/\/[a-z\.\-]+/i) ){
+			throw Error("Damn no URL");
 		}
 
 		// make a call to the resource
@@ -48,8 +47,8 @@ http.createServer(function(req,res){
 
 	}
 	catch(e){
-
-		res.writeHead(502);
+		res.writeHead(200);
+		res.write(e.message);
 		res.end();
 
 	}
