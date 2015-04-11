@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node start.js",
-    "test": "mocha test"
+    "test": "mocha specs"
   },
   "engines": {
-    "node": "0.8.x"
+    "node": "0.12.x"
   },
   "repository": {
     "type": "git",
