@@ -1,7 +1,24 @@
 {
-  "name": "ProxyServer",
-  "version": "0.0.2",
+  "name": "node-proxy-server",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node start.js",
+    "test": "mocha test"
+  },
   "engines": {
     "node": "0.8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/MrSwitch/proxy-server"
+  },
+  "dependencies": {
+    "lodash": "^3.6.0"
+  },
+  "devDependencies": {
+    "connect": "*",
+    "should": ">= 0.0.0",
+    "supertest": "*"
   }
 }
