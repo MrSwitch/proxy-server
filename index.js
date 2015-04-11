@@ -16,6 +16,8 @@ var querystring = require('querystring');
 var https = require('https');
 var merge = require('lodash/object/merge');
 
+var access_controls_headers = {'Access-Control-Allow-Origin' : "*"};
+
 var request = function(opts, callback){
 	var req = (opts.protocol === 'https:'? https : http ).request(opts, callback);
 	req.on('error', callback);
@@ -46,8 +48,9 @@ function proxy(req,res){
 		delete params.url;
 	}
 
-	if(!resourceURL){
-		throw Error("Could not resolve request");
+	if( !resourceURL || !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
+		error(res);
+		return;
 	}
 
 	// Options
@@ -81,8 +84,16 @@ function proxyRequest( req ){
 
 
 function proxyResponse(clientResponse,serverResponse){
-	var headers = serverResponse.headers;
-	headers['Access-Control-Allow-Origin'] = "*";
+	var headers = {};
+	if( serverResponse instanceof Error ){
+		return error(clientResponse);
+	}
+	merge( headers, serverResponse.headers, access_controls_headers );
 	clientResponse.writeHeader(serverResponse.statusCode, headers);
 	serverResponse.pipe(clientResponse, {end:true});
+}
+
+function error(res){
+	res.writeHead(400,access_controls_headers);
+	res.end();
 }
